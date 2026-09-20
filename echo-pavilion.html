@@ -480,49 +480,52 @@
             min-width: 28px;
             text-align: center;
         }
-.dropdown { position: relative; }
-.dropdown-content {
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    min-width: 180px;
-    background: rgba(250, 246, 235, 0.98);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(212, 196, 183, 0.6);
-    border-radius: 8px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-    padding: 8px 0;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
-}
-.dropdown:hover .dropdown-content {
-    opacity: 1;
-    visibility: visible;
-}
-.dropdown-content a {
-    display: block;
-    padding: 10px 20px;
-    color: #4a3b32;
-    text-decoration: none;
-    font-size: 0.9rem;
-    letter-spacing: 1px;
-    transition: background 0.2s;
-}
-.dropdown-content a:hover {
-    background: rgba(168, 75, 75, 0.1);
-    color: #8b2b2b;
-}
-.dropdown-arrow {
-    display: inline-block;
-    width: 6px; height: 6px;
-    border-right: 2px solid currentColor;
-    border-bottom: 2px solid currentColor;
-    transform: rotate(45deg) translateY(-2px);
-    margin-left: 6px;
-    transition: transform 0.2s;
-}
+
+        /* ================= 下拉菜单 ================= */
+        .dropdown { position: relative; }
+        .dropdown-content {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            min-width: 180px;
+            background: rgba(250, 246, 235, 0.98);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(212, 196, 183, 0.6);
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            padding: 8px 0;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        .dropdown:hover .dropdown-content {
+            opacity: 1;
+            visibility: visible;
+        }
+        .dropdown-content a {
+            display: block;
+            padding: 10px 20px;
+            color: #4a3b32;
+            text-decoration: none;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            transition: background 0.2s;
+        }
+        .dropdown-content a:hover {
+            background: rgba(168, 75, 75, 0.1);
+            color: #8b2b2b;
+        }
+        .dropdown-arrow {
+            display: inline-block;
+            width: 6px; height: 6px;
+            border-right: 2px solid currentColor;
+            border-bottom: 2px solid currentColor;
+            transform: rotate(45deg) translateY(-2px);
+            margin-left: 6px;
+            transition: transform 0.2s;
+        }
+
         /* ================= 移动端 ================= */
         @media (max-width: 900px) {
             .global-nav { padding: 0 20px; }
@@ -777,7 +780,7 @@
         (function () {
             "use strict";
 
-            const REAPPEAR_DELAY = 6000;   // 点 ✕ 后过 6 秒重新出现
+            const REAPPEAR_DELAY = 6000;
 
             const layer     = document.getElementById('cardLayer');
             const nameInput = document.getElementById('nameInput');
@@ -798,7 +801,6 @@
             const pendingReappear = new Set();
             let undoSnapshot = null;
 
-            /* ---------- 数据库操作 ---------- */
             async function loadComments() {
                 const { data, error } = await supabaseClient
                     .from('echoes')
@@ -809,7 +811,6 @@
             }
 
             async function saveAllComments(list) {
-                // 全量替换：先删所有，再插入
                 await supabaseClient.from('echoes').delete().neq('id', 0);
                 if (list.length === 0) return;
                 const rows = list.map(i => ({ name: i.name, text: i.text, time: i.time }));
@@ -826,7 +827,6 @@
             function randomInt(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
             function randomFloat(min, max) { return Math.random() * (max - min) + min; }
 
-            /* ---------- 跑马灯 ---------- */
             function startMarquee(el, id) {
                 const rec = liveCards.get(id);
                 if (!rec) return;
@@ -871,7 +871,6 @@
                 rec.tween = tween;
             }
 
-            /* ---------- 创建卡片 ---------- */
             function createCardElement(item) {
                 if (liveCards.has(item.id)) return;
 
@@ -936,7 +935,6 @@
                 return el;
             }
 
-            /* ---------- 从屏幕移除卡片（不删数据库） ---------- */
             function removeCommentFromScreen(id) {
                 const rec = liveCards.get(id);
                 if (!rec) return;
@@ -970,7 +968,6 @@
                 }, REAPPEAR_DELAY);
             }
 
-            /* ---------- 清空全部（带撤销快照） ---------- */
             async function clearAll() {
                 const currentList = await loadComments();
                 if (currentList.length === 0) return;
@@ -1001,7 +998,6 @@
                     cancelUndo();
                 }, UNDO_DURATION * 1000);
 
-                // 清空屏幕上所有卡片
                 Array.from(liveCards.keys()).forEach(id => {
                     const rec = liveCards.get(id);
                     if (!rec) return;
@@ -1015,14 +1011,12 @@
                     liveCards.delete(id);
                 });
 
-                // 清空数据库
                 const { error } = await supabaseClient.from('echoes').delete().neq('id', 0);
                 if (error) console.warn('清空失败', error);
 
                 updateCounter();
             }
 
-            /* ---------- 撤销清空 ---------- */
             async function performUndo() {
                 if (!undoSnapshot || !undoSnapshot.list.length) return;
 
@@ -1048,7 +1042,6 @@
                 undoBtn2.disabled = true;
             }
 
-            /* ---------- 新增评论 ---------- */
             async function addComment(name, text) {
                 const item = {
                     name: name,
@@ -1092,7 +1085,6 @@
             undoBtn.addEventListener('click', performUndo);
             undoBtn2.addEventListener('click', performUndo);
 
-            /* ---------- 初始化 ---------- */
             async function init() {
                 const list = await loadComments();
 
@@ -1105,7 +1097,6 @@
                     commentInput.focus();
                 }
 
-                // ===== 实时同步：其他设备新留言会自动出现 =====
                 supabaseClient
                     .channel('echoes-realtime')
                     .on('postgres_changes',
@@ -1131,7 +1122,7 @@
             else window.addEventListener('load', init);
         })();
 
-        /* ================= 移动端汉堡菜单交互 ================= */
+        /* ================= 移动端汉堡菜单交互（只此一处） ================= */
         const hamburger = document.getElementById('hamburger');
         const navRight = document.getElementById('nav-right');
         const mobileDropdownToggle = document.querySelector('.mobile-dropdown-toggle');
@@ -1158,26 +1149,6 @@
                 }
             });
         }
-        const hamburger = document.getElementById('hamburger');
-const navRight = document.getElementById('nav-right');
-const mobileDropdownToggle = document.querySelector('.mobile-dropdown-toggle');
-const dropdownContent = document.querySelector('.dropdown-content');
-
-if (hamburger) {
-    hamburger.addEventListener('click', () => {
-        hamburger.classList.toggle('is-active');
-        navRight.classList.toggle('is-active');
-    });
-}
-
-if (mobileDropdownToggle) {
-    mobileDropdownToggle.addEventListener('click', (e) => {
-        if (window.innerWidth <= 900) {
-            e.preventDefault();
-            dropdownContent.classList.toggle('is-expanded');
-        }
-    });
-}
     </script>
 </body>
 
