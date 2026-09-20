@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>回声亭 | Echo Pavilion</title>
-    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+   
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
    
     <style>
@@ -680,7 +680,14 @@
         <button class="btn btn-undo" id="undoBtn2" disabled>撤销清空</button>
         <div class="counter">回声 <span id="cardCount">0</span></div>
     </div>
+<script type="module">
+  import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 
+  const SUPABASE_URL = 'https://vnsxhzypicvisbzkbkja.supabase.co';
+  const SUPABASE_KEY = 'sb_publishable_eGEASRai2ygpPMJkxVIL6w_yP0JlDMW';
+  const supabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY);
+  window.supabaseClient = supabaseClient;
+</script>
     <script>
         /* ================= 手机键盘适配 ================= */
         (function () {
@@ -705,10 +712,7 @@
             onViewportChange();
         })();
 
-        /* ================= Supabase 配置 ================= */
-        const SUPABASE_URL = 'https://vnsxhzypicvisbzkbkja.supabase.co';
-        const SUPABASE_KEY = 'sb_publishable_eGEASRai2ygpPMJkxVIL6w_yP0JlDMW';
-        const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
 
         /* ================= 顶部导航花瓣 ================= */
         const globalNavItems = gsap.utils.toArray('.nav-item');
