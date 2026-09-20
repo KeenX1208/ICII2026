@@ -5,9 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>回声亭 | Echo Pavilion</title>
-   
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-   
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -27,105 +26,6 @@
             touch-action: manipulation;
         }
 
-        /* ================= 顶部导航 ================= */
-        .global-nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 80px;
-            background: rgba(244, 236, 216, 0.85);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid #d4c4b7;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 50px;
-            box-sizing: border-box;
-            z-index: 9999;
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
-        }
-
-        .nav-left { display: flex; align-items: center; }
-
-        .logo-link {
-            display: flex;
-            align-items: center;
-            text-decoration: none;
-            gap: 15px;
-            transition: transform 0.3s ease;
-        }
-        .logo-link:hover { transform: scale(1.02); }
-
-        .nav-logo {
-            height: 60px;
-            width: auto;
-            object-fit: contain;
-            border-radius: 4px;
-            filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.15));
-        }
-
-        .nav-brand {
-            font-size: 1.4rem;
-            font-weight: bold;
-            color: #8b2b2b;
-            letter-spacing: 3px;
-        }
-
-        .nav-right {
-            display: flex;
-            gap: 40px;
-            align-items: center;
-        }
-
-        .nav-item {
-            text-decoration: none;
-            color: #4a3b32;
-            font-size: 1.05rem;
-            font-weight: bold;
-            letter-spacing: 2px;
-            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-            position: relative;
-            padding: 8px 18px;
-            border-radius: 6px;
-            overflow: hidden;
-        }
-        .nav-item:hover {
-            color: #f9f6ef;
-            background-color: #a84b4b;
-            transform: scale(1.05);
-        }
-
-        .nav-petal {
-            position: absolute;
-            width: 6px;
-            height: 6px;
-            background: #ffcce5;
-            border-radius: 10px 0 10px 0;
-            pointer-events: none;
-            z-index: 10;
-        }
-
-        /* ================= 汉堡菜单 ================= */
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            gap: 6px;
-            cursor: pointer;
-            z-index: 10001;
-        }
-        .hamburger span {
-            width: 28px;
-            height: 3px;
-            background-color: #8b2b2b;
-            border-radius: 3px;
-            transition: all 0.3s ease;
-        }
-        .hamburger.is-active span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
-        .hamburger.is-active span:nth-child(2) { opacity: 0; }
-        .hamburger.is-active span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
-
-        /* ================= 主布局 ================= */
         .echo-layout {
             position: absolute;
             top: 80px;
@@ -390,11 +290,11 @@
         .bottom-bar .btn-send:hover { background: rgba(180, 130, 220, 0.45); }
 
         .bottom-bar .btn-clear {
-            color: #ccb8d8;
-            background: rgba(255, 70, 70, 0.06);
-            border-color: rgba(255, 100, 100, 0.05);
-            display: none !important;
-        }
+        color: #ccb8d8;
+        background: rgba(255, 70, 70, 0.06);
+        border-color: rgba(255, 100, 100, 0.05);
+        display: none !important;
+    }
         .bottom-bar .btn-clear:hover {
             background: rgba(255, 80, 80, 0.12);
             color: #ffcfcf;
@@ -484,45 +384,6 @@
 
         /* ================= 移动端 ================= */
         @media (max-width: 900px) {
-            .global-nav { padding: 0 20px; }
-            .hamburger { display: flex; }
-            .nav-right {
-                position: absolute;
-                top: 80px;
-                left: 0;
-                width: 100vw;
-                height: 0;
-                overflow: hidden;
-                flex-direction: column;
-                background: rgba(250, 246, 235, 0.98);
-                backdrop-filter: blur(15px);
-                -webkit-backdrop-filter: blur(15px);
-                gap: 0;
-                transition: height 0.4s ease;
-                box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-                align-items: center;
-            }
-            .nav-right.is-active { height: 360px; padding: 10px 0; }
-            .nav-item { width: 100%; text-align: center; padding: 15px 0; border-radius: 0; }
-            .dropdown { width: 100%; flex-direction: column; height: auto; }
-            .dropdown .nav-item { justify-content: center; }
-            .dropdown-content {
-                position: relative;
-                top: 0; left: 0;
-                transform: none;
-                width: 100%;
-                min-width: unset;
-                box-shadow: none;
-                border: none;
-                background: rgba(139, 43, 43, 0.05);
-                display: none;
-                opacity: 1;
-                visibility: visible;
-                border-radius: 0;
-            }
-            .dropdown-content.is-expanded { display: block; }
-            .dropdown-content a { padding: 12px 20px; border-bottom: 1px solid rgba(212, 196, 183, 0.3); }
-
             .echo-layout {
                 flex-direction: column;
                 bottom: 160px;
@@ -532,7 +393,10 @@
                 max-height: 42%;
                 padding: 20px 18px 14px;
             }
-            .card-panel { flex: 1; min-height: 200px; }
+            .card-panel {
+                flex: 1;
+                min-height: 200px;
+            }
             .echo-title { font-size: 1.5rem; letter-spacing: 2px; }
             .echo-subtitle { font-size: 0.72rem; letter-spacing: 2px; margin-bottom: 18px; }
             .echo-section { margin-bottom: 16px; padding-left: 14px; }
@@ -542,7 +406,10 @@
         }
 
         @media (max-width: 760px) {
-            .echo-layout { top: 0; bottom: 180px; }
+            .echo-layout {
+                top: 0;
+                bottom: 180px;
+            }
             .echo-text-panel {
                 max-height: 40%;
                 padding: 16px 14px 10px;
@@ -568,8 +435,14 @@
             }
             .bottom-bar .name-group { flex: 1 1 100%; }
             .bottom-bar .content-group { flex: 1 1 100%; }
-            .bottom-bar input { font-size: 16px; padding: 10px 16px; }
-            .bottom-bar .btn { font-size: 0.85rem; padding: 9px 16px; }
+            .bottom-bar input {
+                font-size: 16px;
+                padding: 10px 16px;
+            }
+            .bottom-bar .btn {
+                font-size: 0.85rem;
+                padding: 9px 16px;
+            }
             .bottom-bar .btn-send { padding: 9px 22px; font-size: 0.9rem; }
             .bottom-bar .counter { font-size: 0.78rem; }
 
@@ -590,34 +463,6 @@
 </head>
 
 <body>
-
-    <!-- ================= 顶部导航 ================= -->
-    <nav class="global-nav">
-        <div class="nav-left">
-            <a href="index.html" class="logo-link">
-                <img src="images/纵向-亮色背景.png" alt="Team Logo" class="nav-logo">
-                <span class="nav-brand">ICII 2026</span>
-            </a>
-        </div>
-        <div class="hamburger" id="hamburger">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-        <div class="nav-right" id="nav-right">
-            <a href="index.html" class="nav-item">Garden Gate</a>
-            <a href="garden-atlas.html" class="nav-item">Garden Atlas</a>
-            <a href="framed-views.html" class="nav-item">Framed Views</a>
-            <a href="echo-pavilion.html" class="nav-item">Echo Pavilion</a>
-            <div class="dropdown">
-                <a href="#" class="nav-item mobile-dropdown-toggle">Our Journey <span class="dropdown-arrow"></span></a>
-                <div class="dropdown-content">
-                    <a href="our_journey.html">About the Garden</a>
-                    <a href="our_journey2.html">About the Host Team</a>
-                </div>
-            </div>
-        </div>
-    </nav>
 
     <div class="echo-layout">
         <aside class="echo-text-panel">
@@ -681,11 +526,8 @@
         <div class="counter">回声 <span id="cardCount">0</span></div>
     </div>
 
-    <script type="module">
-    import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
-    const SUPABASE_URL = 'https://vnsxhzypicvisbzkbkja.supabase.co';
-    const SUPABASE_KEY = 'sb_publishable_eGEASRai2ygpPMJkxVIL6w_yP0JlDMW';
-    const supabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY);
+    <script>
+        /* ================= 手机键盘适配 ================= */
         (function () {
             if (!window.visualViewport) return;
             const bar = document.querySelector('.bottom-bar');
@@ -708,29 +550,10 @@
             onViewportChange();
         })();
 
-
-
-        /* ================= 顶部导航花瓣 ================= */
-        const globalNavItems = gsap.utils.toArray('.nav-item');
-        function createGlobalNavPetal(parent) {
-            const petal = document.createElement('div');
-            petal.classList.add('nav-petal');
-            parent.appendChild(petal);
-            const startX = Math.random() * parent.offsetWidth;
-            const startY = -10;
-            gsap.set(petal, { x: startX, y: startY, rotation: Math.random() * 360, scale: Math.random() * 0.5 + 0.5 });
-            gsap.to(petal, {
-                y: parent.offsetHeight + 10, x: startX + (Math.random() * 20 - 10),
-                rotation: "+=" + (Math.random() * 200 - 100), opacity: 0,
-                duration: 0.5 + Math.random() * 0.4, ease: "power1.in",
-                onComplete: () => petal.remove()
-            });
-        }
-        globalNavItems.forEach(item => {
-            item.addEventListener('mouseenter', () => {
-                for (let j = 0; j < 6; j++) { setTimeout(() => { createGlobalNavPetal(item); }, j * 60); }
-            });
-        });
+        /* ================= Supabase 配置 ================= */
+        const SUPABASE_URL = 'https://vnsxhzypicvisbzkbkja.supabase.co';
+        const SUPABASE_KEY = 'sb_publishable_eGEASRai2ygpPMJkxVIL6w_yP0JlDMW';
+        const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
         /* ================= 回声亭：跑马灯 + 延迟重现 + 撤销清空 ================= */
         (function () {
@@ -1089,34 +912,6 @@
             if (document.readyState === 'complete') init();
             else window.addEventListener('load', init);
         })();
-
-        /* ================= 移动端汉堡菜单交互 ================= */
-        const hamburger = document.getElementById('hamburger');
-        const navRight = document.getElementById('nav-right');
-        const mobileDropdownToggle = document.querySelector('.mobile-dropdown-toggle');
-        const dropdownContent = document.querySelector('.dropdown-content');
-
-        if (hamburger) {
-            hamburger.addEventListener('click', () => {
-                hamburger.classList.toggle('is-active');
-                navRight.classList.toggle('is-active');
-            });
-        }
-
-        if (mobileDropdownToggle) {
-            mobileDropdownToggle.addEventListener('click', (e) => {
-                if (window.innerWidth <= 900) {
-                    e.preventDefault();
-                    dropdownContent.classList.toggle('is-expanded');
-                    const arrow = mobileDropdownToggle.querySelector('.dropdown-arrow');
-                    if (dropdownContent.classList.contains('is-expanded')) {
-                        arrow.style.transform = 'rotate(225deg) translate(-2px, -2px)';
-                    } else {
-                        arrow.style.transform = 'rotate(45deg) translateY(-2px)';
-                    }
-                }
-            });
-        }
     </script>
 </body>
 
