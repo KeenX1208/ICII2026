@@ -480,7 +480,49 @@
             min-width: 28px;
             text-align: center;
         }
-
+.dropdown { position: relative; }
+.dropdown-content {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    min-width: 180px;
+    background: rgba(250, 246, 235, 0.98);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(212, 196, 183, 0.6);
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    padding: 8px 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+.dropdown:hover .dropdown-content {
+    opacity: 1;
+    visibility: visible;
+}
+.dropdown-content a {
+    display: block;
+    padding: 10px 20px;
+    color: #4a3b32;
+    text-decoration: none;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    transition: background 0.2s;
+}
+.dropdown-content a:hover {
+    background: rgba(168, 75, 75, 0.1);
+    color: #8b2b2b;
+}
+.dropdown-arrow {
+    display: inline-block;
+    width: 6px; height: 6px;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: rotate(45deg) translateY(-2px);
+    margin-left: 6px;
+    transition: transform 0.2s;
+}
         /* ================= 移动端 ================= */
         @media (max-width: 900px) {
             .global-nav { padding: 0 20px; }
@@ -1116,6 +1158,26 @@
                 }
             });
         }
+        const hamburger = document.getElementById('hamburger');
+const navRight = document.getElementById('nav-right');
+const mobileDropdownToggle = document.querySelector('.mobile-dropdown-toggle');
+const dropdownContent = document.querySelector('.dropdown-content');
+
+if (hamburger) {
+    hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('is-active');
+        navRight.classList.toggle('is-active');
+    });
+}
+
+if (mobileDropdownToggle) {
+    mobileDropdownToggle.addEventListener('click', (e) => {
+        if (window.innerWidth <= 900) {
+            e.preventDefault();
+            dropdownContent.classList.toggle('is-expanded');
+        }
+    });
+}
     </script>
 </body>
 
