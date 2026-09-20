@@ -680,16 +680,12 @@
         <button class="btn btn-undo" id="undoBtn2" disabled>撤销清空</button>
         <div class="counter">回声 <span id="cardCount">0</span></div>
     </div>
-<script type="module">
-  import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 
-  const SUPABASE_URL = 'https://vnsxhzypicvisbzkbkja.supabase.co';
-  const SUPABASE_KEY = 'sb_publishable_eGEASRai2ygpPMJkxVIL6w_yP0JlDMW';
-  const supabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY);
-  window.supabaseClient = supabaseClient;
-</script>
-    <script>
-        /* ================= 手机键盘适配 ================= */
+    <script type="module">
+    import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+    const SUPABASE_URL = 'https://vnsxhzypicvisbzkbkja.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_eGEASRai2ygpPMJkxVIL6w_yP0JlDMW';
+    const supabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY);
         (function () {
             if (!window.visualViewport) return;
             const bar = document.querySelector('.bottom-bar');
