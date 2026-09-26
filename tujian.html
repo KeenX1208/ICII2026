@@ -1,50 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html,
-        body {
-            height: 100%;
-            width: 100%;
-            overflow: hidden;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { height: 100%; width: 100%; overflow: hidden; }
         .background {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #f0f0f0;
-            overflow: hidden;
+            width: 100%; height: 100%;
+            display: flex; justify-content: center; align-items: center;
+            background-color: #f0f0f0; overflow: hidden;
         }
-
-        .image-wrapper {
-            position: relative;
-            max-width: 100%;
-            max-height: 100%;
+        .image-wrapper { position: relative; max-width: 100%; max-height: 100%; }
+        .image-wrapper > img {
+            max-width: 100%; max-height: 100%;
+            width: auto; height: auto;
+            display: block; object-fit: contain;
         }
-
-        .image-wrapper>img {
-            max-width: 100%;
-            max-height: 100%;
-            width: auto;
-            height: auto;
-            display: block;
-            object-fit: contain;
-        }
-
         .menpai {
             position: absolute;
             padding: 0.5em 1.2em;
@@ -63,7 +36,6 @@
             cursor: pointer;
             transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
         }
-
         .jingguan {
             position: absolute;
             height: 25%;
@@ -73,34 +45,32 @@
             transition: transform 0.3s ease, filter 0.3s ease;
             filter: drop-shadow(0 0 0 transparent);
         }
-
-        .jingguan img {
-            height: 100%;
-            width: auto;
-            display: block;
-            pointer-events: none;
-        }
-
+        .jingguan img { height: 100%; width: auto; display: block; pointer-events: none; }
         .menpai.hovered {
             transform: translate(-50%, -50%) scale(1.15);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45);
             filter: brightness(1.1);
         }
-
         .jingguan.hovered {
             transform: translate(-50%, -100%) scale(1.15);
             filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.45)) brightness(1.1);
         }
-
-        .menpai-1 { top: 31%; left: 34%; }
-        .menpai-2 { top: 42%; left: 60%; }
-        .menpai-3 { top: 10%; left: 62%; }
-        .menpai-4 { top: 20%; left: 70%; }
-        .menpai-5 { top: 45%; left: 25%; }
-        .menpai-6 { top: 16%; left: 50%; }
-        .menpai-7 { top: 35%; left: 84%; }
-        .menpai-8 { top: 63%; left: 10%; }
-        .menpai-9 { top: 67%; left: 32%; }
+        .jingguan-17,.jingguan-20{
+            height: 10%;
+        }
+        .jingguan-18{
+            height: 8%;
+        }
+        /* ===== 原有 1-16 ===== */
+        .menpai-1  { top: 31%; left: 34%; }
+        .menpai-2  { top: 42%; left: 60%; }
+        .menpai-3  { top: 10%; left: 62%; }
+        .menpai-4  { top: 20%; left: 70%; }
+        .menpai-5  { top: 45%; left: 25%; }
+        .menpai-6  { top: 16%; left: 50%; }
+        .menpai-7  { top: 35%; left: 84%; }
+        .menpai-8  { top: 63%; left: 10%; }
+        .menpai-9  { top: 60%; left: 32%; }
         .menpai-10 { top: 65%; left: 55%; }
         .menpai-11 { top: 70%; left: 82%; }
         .menpai-12 { top: 83%; left: 18%; }
@@ -109,15 +79,15 @@
         .menpai-15 { top: 90%; left: 82%; }
         .menpai-16 { top: 95%; left: 45%; }
 
-        .jingguan-1 { top: 26%; left: 34%; }
-        .jingguan-2 { top: 46%; left: 55%; }
-        .jingguan-3 { top: 35%; left: 62%; }
-        .jingguan-4 { top: 35%; left: 70%; }
-        .jingguan-5 { top: 40%; left: 25%; }
-        .jingguan-6 { top: 38%; left: 50%; }
-        .jingguan-7 { top: 30%; left: 84%; }
-        .jingguan-8 { top: 58%; left: 10%; }
-        .jingguan-9 { top: 62%; left: 32%; }
+        .jingguan-1  { top: 26%; left: 34%; }
+        .jingguan-2  { top: 46%; left: 55%; }
+        .jingguan-3  { top: 35%; left: 62%; }
+        .jingguan-4  { top: 35%; left: 70%; }
+        .jingguan-5  { top: 40%; left: 25%; }
+        .jingguan-6  { top: 38%; left: 50%; }
+        .jingguan-7  { top: 30%; left: 84%; }
+        .jingguan-8  { top: 58%; left: 10%; }
+        .jingguan-9  { top: 62%; left: 32%; }
         .jingguan-10 { top: 60%; left: 55%; }
         .jingguan-11 { top: 65%; left: 82%; }
         .jingguan-12 { top: 78%; left: 18%; }
@@ -126,69 +96,63 @@
         .jingguan-15 { top: 85%; left: 82%; }
         .jingguan-16 { top: 96%; left: 45%; }
 
-        .zhuzi1,
-        .zhuzi2 {
-            position: absolute;
-            height: 35%;
-            z-index: 5;
+        /* ===== 新增 17-22（6 个补齐队伍）===== */
+        .menpai-17 { top: 15%;  left: 20%; }
+        .menpai-18 { top: 12%; left: 30%; }
+        .menpai-19 { top: 40%; left: 5%;  }
+        .menpai-20 { top: 50%; left: 92%; }
+        .menpai-21 { top: 78%; left: 5%;  }
+        .menpai-22 { top: 86%; left: 35%; }
+
+        .jingguan-17 { top: 10%;  left: 20%; }
+        .jingguan-18 { top: 9%;  left: 30%; }
+        .jingguan-19 { top: 45%; left: 5%;  }
+        .jingguan-20 { top: 45%; left: 92%; }
+        .jingguan-21 { top: 73%; left: 5%;  }
+        .jingguan-22 { top: 90%; left: 35%; }
+
+        .zhuzi1, .zhuzi2 {
+            position: absolute; height: 35%; z-index: 5;
             transform-origin: bottom center;
             animation: sway 3s ease-in-out infinite;
             pointer-events: none;
         }
-
-        .zhuzi1 img,
-        .zhuzi2 img {
-            height: 100%;
-            width: auto;
-            display: block;
-        }
-
+        .zhuzi1 img, .zhuzi2 img { height: 100%; width: auto; display: block; }
         .zhuzi1 { top: 50%; left: 10%; }
         .zhuzi2 { top: 50%; left: 70%; animation-delay: 0.5s; }
 
         .yanzi {
-            position: absolute;
-            top: 20%;
-            right: 0;
-            height: 8%;
-            z-index: 6;
-            animation: fly 20s linear infinite;
-            pointer-events: none;
+            position: absolute; top: 20%; right: 0; height: 8%;
+            z-index: 6; animation: fly 20s linear infinite; pointer-events: none;
         }
-
-        .yanzi img {
-            height: 100%;
-            width: auto;
-            display: block;
-        }
+        .yanzi img { height: 100%; width: auto; display: block; }
 
         @keyframes sway {
-            0% { transform: translate(-50%, -50%) rotate(-5deg); }
-            50% { transform: translate(-50%, -50%) rotate(5deg); }
+            0%   { transform: translate(-50%, -50%) rotate(-5deg); }
+            50%  { transform: translate(-50%, -50%) rotate(5deg); }
             100% { transform: translate(-50%, -50%) rotate(-5deg); }
         }
-
         @keyframes fly {
-            0% { right: -15%; top: 20%; transform: scale(0.9); }
-            10% { top: 1%; }
-            20% { top: 1%; transform: scale(1); }
-            30% { top: 10%; }
-            40% { top: 24%; transform: scale(0.95); }
-            50% { top: 1%; }
-            60% { top: 2%; transform: scale(1.05); }
-            70% { top: 2%; }
-            80% { top: 12%; transform: scale(0.9); }
-            90% { top: 16%; }
+            0%   { right: -15%; top: 20%; transform: scale(0.9); }
+            10%  { top: 1%; }
+            20%  { top: 1%; transform: scale(1); }
+            30%  { top: 10%; }
+            40%  { top: 24%; transform: scale(0.95); }
+            50%  { top: 1%; }
+            60%  { top: 2%; transform: scale(1.05); }
+            70%  { top: 2%; }
+            80%  { top: 12%; transform: scale(0.9); }
+            90%  { top: 16%; }
             100% { right: 100%; top: 16%; transform: scale(0.9); }
         }
     </style>
 </head>
-
 <body>
     <div class="background">
         <div class="image-wrapper">
             <img src="./images/image.png" alt="">
 
+            <!-- ===== 原有 1-16 ===== -->
             <div class="jingguan jingguan-1" data-href="garden-atlas.html"><img src="./images/t1.png" alt=""></div>
             <div class="menpai menpai-1" data-href="garden-atlas.html">NNU-Nanjing-China</div>
 
@@ -237,16 +201,28 @@
             <div class="jingguan jingguan-16" data-href="garden-atlas.html"><img src="./images/t4.png" alt=""></div>
             <div class="menpai menpai-16" data-href="garden-atlas.html">NEFU-China 2026</div>
 
-            <div class="zhuzi1">
-                <img src="./images/竹.png" alt="">
-            </div>
-            <div class="zhuzi2">
-                <img src="./images/竹.png" alt="">
-            </div>
+            <!-- ===== 新增 17-22（补齐 6 个）===== -->
+            <div class="jingguan jingguan-17" data-href="garden-atlas.html"><img src="./images/红日.png" alt=""></div>
+            <div class="menpai menpai-17" data-href="garden-atlas.html">BUCT-China</div>
 
-            <div class="yanzi">
-                <img src="./images/燕子.png" alt="">
-            </div>
+            <div class="jingguan jingguan-18" data-href="garden-atlas.html"><img src="./images/小燕子.png" alt=""></div>
+            <div class="menpai menpai-18" data-href="garden-atlas.html">JLU-FBH</div>
+
+            <div class="jingguan jingguan-19" data-href="garden-atlas.html"><img src="./images/竹.png" alt=""></div>
+            <div class="menpai menpai-19" data-href="garden-atlas.html">JLU-NBBMS</div>
+
+            <div class="jingguan jingguan-20" data-href="garden-atlas.html"><img src="./images/小燕子.png" alt=""></div>
+            <div class="menpai menpai-20" data-href="garden-atlas.html">LZU-CHINA</div>
+
+            <div class="jingguan jingguan-21" data-href="garden-atlas.html"><img src="./images/台.png" alt=""></div>
+            <div class="menpai menpai-21" data-href="garden-atlas.html">NAU-CHINA</div>
+
+            <div class="jingguan jingguan-22" data-href="garden-atlas.html"><img src="./images/竹.png" alt=""></div>
+            <div class="menpai menpai-22" data-href="garden-atlas.html">SYPHU-China</div>
+
+            <div class="zhuzi1"><img src="./images/竹.png" alt=""></div>
+            <div class="zhuzi2"><img src="./images/竹.png" alt=""></div>
+            <div class="yanzi"><img src="./images/燕子.png" alt=""></div>
         </div>
     </div>
 
@@ -257,54 +233,20 @@
             });
         });
 
-        for (let i = 1; i <= 16; i++) {
+        // 上限改为 22（16 + 6）
+        for (let i = 1; i <= 22; i++) {
             const jg = document.querySelector('.jingguan-' + i);
             const mp = document.querySelector('.menpai-' + i);
             if (!jg || !mp) continue;
 
-            const on = () => {
-                jg.classList.add('hovered');
-                mp.classList.add('hovered');
-            };
-            const off = () => {
-                jg.classList.remove('hovered');
-                mp.classList.remove('hovered');
-            };
+            const on  = () => { jg.classList.add('hovered'); mp.classList.add('hovered'); };
+            const off = () => { jg.classList.remove('hovered'); mp.classList.remove('hovered'); };
 
             [jg, mp].forEach(el => {
                 el.addEventListener('mouseenter', on);
                 el.addEventListener('mouseleave', off);
             });
         }
-
-        /* ================= 移动端汉堡菜单交互 ================= */
-        const hamburger = document.getElementById('hamburger');
-        const navRight = document.getElementById('nav-right');
-        const mobileDropdownToggle = document.querySelector('.mobile-dropdown-toggle');
-        const dropdownContent = document.querySelector('.dropdown-content');
-
-        if (hamburger) {
-            hamburger.addEventListener('click', () => {
-                hamburger.classList.toggle('is-active');
-                navRight.classList.toggle('is-active');
-            });
-        }
-
-        if (mobileDropdownToggle) {
-            mobileDropdownToggle.addEventListener('click', (e) => {
-                if (window.innerWidth <= 900) {
-                    e.preventDefault();
-                    dropdownContent.classList.toggle('is-expanded');
-                    const arrow = mobileDropdownToggle.querySelector('.dropdown-arrow');
-                    if (dropdownContent.classList.contains('is-expanded')) {
-                        arrow.style.transform = 'rotate(225deg) translate(-2px, -2px)';
-                    } else {
-                        arrow.style.transform = 'rotate(45deg) translateY(-2px)';
-                    }
-                }
-            });
-        }
     </script>
 </body>
-
 </html>

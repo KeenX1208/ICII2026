@@ -5,73 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Framed Views | 借景相望</title>
+    <!-- 引入分离的 CSS 文件 -->
     <link rel="stylesheet" href="framed-views-style.css">
+    <!-- 引入 GSAP 核心与插件 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <style>
-        /* ================= 借景相望：首屏介绍卡片样式 ================= */
-        .intro-slide {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100vw;
-            height: 100vh;
-            scroll-snap-align: center;
-            /* 核心：确保它是一个坚固的吸附点 */
-        }
-
-        .intro-box {
-            background: rgba(244, 236, 216, 0.85);
-            padding: 60px 80px;
-            border-radius: 12px;
-            border: 1px dashed #d4c4b7;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
-            max-width: 850px;
-            text-align: center;
-            backdrop-filter: blur(10px);
-            margin: 0 auto;
-        }
-
-        .intro-box h2 {
-            font-size: 2.8rem;
-            color: #8b2b2b;
-            margin-bottom: 25px;
-            letter-spacing: 2px;
-        }
-
-        .intro-box p {
-            font-size: 1.25rem;
-            color: #4a3b32;
-            line-height: 1.8;
-            margin-bottom: 35px;
-            text-align: justify;
-        }
-
-        .intro-box .scroll-hint {
-            font-size: 1.2rem;
-            color: #a84b4b;
-            font-weight: bold;
-            letter-spacing: 2px;
-            animation: swipePulse 2s infinite;
-        }
-
-        @keyframes swipePulse {
-            0% {
-                opacity: 0.5;
-                transform: translateX(0);
-            }
-
-            50% {
-                opacity: 1;
-                transform: translateX(15px);
-            }
-
-            100% {
-                opacity: 0.5;
-                transform: translateX(0);
-            }
-        }
-    </style>
 </head>
 
 <body>
@@ -112,7 +50,7 @@
     <div class="horizontal-container">
         <div class="scroll-wrapper">
 
-            <!-- 第一个独立的首屏介绍 Slide，作为起点的强吸附卡片 -->
+            <!-- 首屏介绍 Slide -->
             <section class="pair-section intro-slide">
                 <div class="intro-box">
                     <h2>How does a window change the view?</h2>
@@ -124,61 +62,64 @@
                 </div>
             </section>
 
-            <!-- Pair 1: CAU-China x CUHKSZ -->
+            <!-- Card 01 · NAU-CHINA × NNU-Nanjing-China -->
             <section class="pair-section">
                 <div class="team-card-frame team-left">
                     <div class="frame-inner">
-                        <span class="location-tag">Beijing</span>
-                        <h2>CAU-China</h2>
-                        <p class="project-title">Fungal Sentinel</p>
-                        <p class="project-sub">Yeast VOC Biosensor</p>
+                        <span class="location-tag">Nanjing</span>
+                        <h2>NAU-CHINA</h2>
+                        <p class="project-title">CellApp</p>
+                        <p class="project-sub">Dynamic LLPS Toolbox</p>
                     </div>
                 </div>
 
                 <div class="window-card">
                     <div class="window-inner">
-                        <!-- 窗的正面 -->
                         <div class="window-front">
                             <div class="card-header">
                                 <h3>Framed View Card</h3>
-                                <div class="pair-badge">CAU-China × CUHKSZ</div>
+                                <div class="pair-badge">NAU-CHINA × NNU-Nanjing-China</div>
                             </div>
 
                             <div class="content-block">
                                 <h4>Why We Connect</h4>
-                                <p>Both projects focus on agricultural "early warning" systems before visible damage
-                                    occurs. CAU-China targets postharvest storage by sensing fungal VOCs, while CUHKSZ
-                                    targets pre-harvest plant stress by detecting subterranean hormones.</p>
+                                <!--[cite: 17] -->
+                                <p>Both teams are based in Nanjing and chose liquid-liquid phase separation (LLPS).
+                                    NAU-CHINA creates a programmable toolbox to answer "how to regulate condensates",
+                                    while NNU-Nanjing-China applies membraneless organelles to indigo biosynthesis,
+                                    answering "how to improve industrial efficiency". One creates the method, the other
+                                    applies it.</p>
                             </div>
 
                             <div class="content-block">
                                 <h4>Joint Output</h4>
-                                <p>A conceptual framework for an "End-to-End Agricultural Guardianship" system,
-                                    integrating field-level cell-free stress detection with granary-level living
-                                    biosensors.</p>
+                                <!--[cite: 17] -->
+                                <p>Together they complete the full chain of condensate technology from basic genetic
+                                    tool design to industrial implementation in sustainable dye production.</p>
                             </div>
 
                             <button class="btn-push-window">Push Open This Window</button>
                         </div>
 
-                        <!-- 窗的背面 -->
                         <div class="window-back">
                             <div class="card-header">
                                 <h3>What We See in Each Other</h3>
                             </div>
 
-                            <div class="insight-block fudan-insight">
-                                <h4>CAU-China's View:</h4>
-                                <p>"CUHKSZ's pivot to a cell-free diagnostic kit inspired us to consider cell-free
-                                    deployment for our fungal sensor to bypass strict biosecurity regulations in
-                                    agricultural facilities."</p>
+                            <div class="insight-block">
+                                <h4>NAU-CHINA's View:</h4>
+                                <!--[cite: 17] -->
+                                <p>"We interpret the boundary philosophy of membraneless organelles through Suzhou
+                                    gardens—separated yet connected. NNU-Nanjing-China's application proves our toolbox
+                                    can solve real-world industrial challenges."</p>
                             </div>
 
-                            <div class="insight-block nau-insight">
-                                <h4>CUHKSZ's View:</h4>
-                                <p>"CAU-China’s portable LED/smartphone detector design provides a brilliant blueprint
-                                    for how we can make our plant hormone fluorescence visible and accessible to
-                                    everyday farmers."</p>
+                            <div class="insight-block">
+                                <h4>NNU-Nanjing-China's View:</h4>
+                                <!--[cite: 17] -->
+                                <p>"We focus on preserving the Nantong tie-dye cultural heritage. NAU-CHINA's tunable
+                                    condensation modules provide a broader theoretical foundation for our biosynthetic
+                                    indigo spatial compartmentalization strategy."</p>
                             </div>
 
                             <button class="btn-switch-view">Switch Viewing Direction</button>
@@ -188,22 +129,22 @@
 
                 <div class="team-card-frame team-right">
                     <div class="frame-inner">
-                        <span class="location-tag">Shenzhen</span>
-                        <h2>CUHKSZ</h2>
-                        <p class="project-title">PlantSOS</p>
-                        <p class="project-sub">Plant Stress Biosensor</p>
+                        <span class="location-tag">Nanjing</span>
+                        <h2>NNU-Nanjing-China</h2>
+                        <p class="project-title">Biosynthetic Indigo</p>
+                        <p class="project-sub">Sustainable Dyeing</p>
                     </div>
                 </div>
             </section>
 
-            <!-- Pair 2: HUST-China x TJUSLS_China -->
+            <!-- Card 02 · BUCT-China × HUST-China -->
             <section class="pair-section">
                 <div class="team-card-frame team-left">
                     <div class="frame-inner">
-                        <span class="location-tag">Wuhan</span>
-                        <h2>HUST-China</h2>
-                        <p class="project-title">Diancui-Mimetic</p>
-                        <p class="project-sub">Structural Color Materials</p>
+                        <span class="location-tag">Beijing</span>
+                        <h2>BUCT-China</h2>
+                        <p class="project-title">CycloGlass</p>
+                        <p class="project-sub">Recyclable Bioplastic</p>
                     </div>
                 </div>
 
@@ -212,21 +153,24 @@
                         <div class="window-front">
                             <div class="card-header">
                                 <h3>Framed View Card</h3>
-                                <div class="pair-badge">HUST-China × TJUSLS_China</div>
+                                <div class="pair-badge">BUCT-China × HUST-China</div>
                             </div>
 
                             <div class="content-block">
                                 <h4>Why We Connect</h4>
-                                <p>Both teams address the global materials crisis through a circular economy lens.
-                                    HUST-China builds sustainable, high-value materials from waste cotton, while TJUSLS
-                                    degrades stubborn polyurethane waste using novel enzymes.</p>
+                                <!--[cite: 17] -->
+                                <p>Both teams are "turning waste into new materials", but their outputs are entirely
+                                    different. BUCT turns kitchen waste into transparent, degradable structural
+                                    material, while HUST turns waste cotton into aesthetic structural color material.
+                                </p>
                             </div>
 
                             <div class="content-block">
                                 <h4>Joint Output</h4>
-                                <p>A joint white paper on "Circular Synthetic Biology," exploring how bio-manufacturing
-                                    can seamlessly connect the degradation of synthetic plastics with the synthesis of
-                                    sustainable biomaterials.</p>
+                                <!--[cite: 17] -->
+                                <p>A comparative exploration of biomaterial properties: Vessel vs. Decoration. One
+                                    pursues functional load-bearing capacity and recycling, while the other pursues
+                                    sensory color presentation.</p>
                             </div>
 
                             <button class="btn-push-window">Push Open This Window</button>
@@ -237,18 +181,96 @@
                                 <h3>What We See in Each Other</h3>
                             </div>
 
-                            <div class="insight-block suzhou-insight">
-                                <h4>HUST-China's View:</h4>
-                                <p>"TJUSLS’s metagenomic mining for PURases demonstrates how to tackle recalcitrant
-                                    materials, inspiring us to explore enzymatic degradation of other textile wastes."
+                            <div class="insight-block">
+                                <h4>BUCT-China's View:</h4>
+                                <!--[cite: 17] -->
+                                <p>"We rely on host-guest interactions and hydrogen bonds, acting like 'sunmao' (mortise
+                                    and tenon) for physical strength. HUST's biomimetic approach to replicating
+                                    kingfisher feathers shows us the artistic potential of biological self-assembly."
                                 </p>
                             </div>
 
-                            <div class="insight-block zju-insight">
+                            <div class="insight-block">
+                                <h4>HUST-China's View:</h4>
+                                <!--[cite: 17] -->
+                                <p>"Our Diancui-mimetic material revives endangered crafts. BUCT's closed-loop
+                                    recyclability provides a perfect engineering reference for how our structural
+                                    protein materials might be disassembled and reused in the future."</p>
+                            </div>
+
+                            <button class="btn-switch-view">Switch Viewing Direction</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="team-card-frame team-right">
+                    <div class="frame-inner">
+                        <span class="location-tag">Wuhan</span>
+                        <h2>HUST-China</h2>
+                        <p class="project-title">Diancui-Mimetic</p>
+                        <p class="project-sub">Structural Color</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Card 03 · HUBU-WUHAN × TJUSLS_China -->
+            <section class="pair-section">
+                <div class="team-card-frame team-left">
+                    <div class="frame-inner">
+                        <span class="location-tag">Wuhan</span>
+                        <h2>HUBU-WUHAN</h2>
+                        <p class="project-title">Whole-Cell Biosensor</p>
+                        <p class="project-sub">Naphthalene Detection</p>
+                    </div>
+                </div>
+
+                <div class="window-card">
+                    <div class="window-inner">
+                        <div class="window-front">
+                            <div class="card-header">
+                                <h3>Framed View Card</h3>
+                                <div class="pair-badge">HUBU-WUHAN × TJUSLS_China</div>
+                            </div>
+
+                            <div class="content-block">
+                                <h4>Why We Connect</h4>
+                                <!--[cite: 17] -->
+                                <p>Liquid and solid represent the two fundamental forms of pollution. HUBU guards
+                                    against invisible chemical pollution in water (dissolved PAHs), while TJUSLS guards
+                                    against visible solid waste on land (polyurethane plastic).</p>
+                            </div>
+
+                            <div class="content-block">
+                                <h4>Joint Output</h4>
+                                <!--[cite: 17] -->
+                                <p>A shared cultural philosophy: whether applying a whole-cell catalyst for immediate
+                                    on-site river screening, or engineering enzymes for industrial-scale plastic
+                                    degradation, every polluted corner should be made clean again.</p>
+                            </div>
+
+                            <button class="btn-push-window">Push Open This Window</button>
+                        </div>
+
+                        <div class="window-back">
+                            <div class="card-header">
+                                <h3>What We See in Each Other</h3>
+                            </div>
+
+                            <div class="insight-block">
+                                <h4>HUBU-WUHAN's View:</h4>
+                                <!--[cite: 17] -->
+                                <p>"Rooted in the Yangtze River water culture ('tian ren he yi'), we use single living
+                                    cells to accomplish both detection and degradation. TJUSLS’s genome-scale
+                                    computational mining inspires us to search for more robust PAH degrading enzymes."
+                                </p>
+                            </div>
+
+                            <div class="insight-block">
                                 <h4>TJUSLS_China's View:</h4>
-                                <p>"HUST’s ability to self-assemble cellulose nanocrystals into structural colors shows
-                                    us that degraded plastic monomers could eventually be upcycled into high-value
-                                    aesthetic materials."</p>
+                                <!--[cite: 17] -->
+                                <p>"We follow the Taoist teaching of 'leaving no discarded objects'. HUBU's immobilized
+                                    bacterial membranes on cellulose filter discs provide a brilliant example of how
+                                    complex bio-reactions can be packaged into ready-to-use kits."</p>
                             </div>
 
                             <button class="btn-switch-view">Switch Viewing Direction</button>
@@ -261,19 +283,19 @@
                         <span class="location-tag">Tianjin</span>
                         <h2>TJUSLS_China</h2>
                         <p class="project-title">PUReCycle</p>
-                        <p class="project-sub">Polyurethane Biodegradation</p>
+                        <p class="project-sub">Polyurethane Degradation</p>
                     </div>
                 </div>
             </section>
 
-            <!-- Pair 3: HKU-HongKong x HunanU -->
+            <!-- Card 04 · USTC-iGEM × SYPHU-China -->
             <section class="pair-section">
                 <div class="team-card-frame team-left">
                     <div class="frame-inner">
-                        <span class="location-tag">Hong Kong</span>
-                        <h2>HKU-HongKong</h2>
-                        <p class="project-title">Smart Hydrogel</p>
-                        <p class="project-sub">Chronic Wound Healing</p>
+                        <span class="location-tag">Hefei</span>
+                        <h2>USTC-iGEM</h2>
+                        <p class="project-title">TEMPO</p>
+                        <p class="project-sub">Biological Timing</p>
                     </div>
                 </div>
 
@@ -282,20 +304,24 @@
                         <div class="window-front">
                             <div class="card-header">
                                 <h3>Framed View Card</h3>
-                                <div class="pair-badge">HKU-HongKong × HunanU</div>
+                                <div class="pair-badge">USTC-iGEM × SYPHU-China</div>
                             </div>
 
                             <div class="content-block">
                                 <h4>Why We Connect</h4>
-                                <p>Both teams develop highly localized, non-systemic interventions for chronic
-                                    mucosal/epithelial conditions, replacing aggressive traditional treatments with
-                                    mild, restorative microenvironment modulation.</p>
+                                <!--[cite: 17] -->
+                                <p>One team builds a "clock," the other needs "timed drug delivery". USTC solves "how
+                                    cells know what to do now" by building the infrastructure of time; SYPHU explores a
+                                    live biotherapeutic product that needs "when, where, and how to release the drug".
+                                </p>
                             </div>
 
                             <div class="content-block">
                                 <h4>Joint Output</h4>
-                                <p>A collaborative computational modeling toolkit simulating localized drug diffusion
-                                    and tissue recovery in epithelial and mucosal microenvironments.</p>
+                                <!--[cite: 17] -->
+                                <p>A natural pair of supply and demand bridging temporal activation algorithms with
+                                    localized therapeutic delivery, forming a dialogue about "time" at the molecular
+                                    level.</p>
                             </div>
 
                             <button class="btn-push-window">Push Open This Window</button>
@@ -306,18 +332,20 @@
                                 <h3>What We See in Each Other</h3>
                             </div>
 
-                            <div class="insight-block suzhou-insight">
-                                <h4>HKU-HongKong's View:</h4>
-                                <p>"HunanU's living probiotic approach for continuous, in-situ drug delivery makes us
-                                    reconsider whether engineered bacteria could eventually replace our hydrogel for
-                                    long-term wound maintenance."</p>
+                            <div class="insight-block">
+                                <h4>USTC-iGEM's View:</h4>
+                                <!--[cite: 17] -->
+                                <p>"Our oscillator defines time through periodic events, like traditional Shichen.
+                                    SYPHU's need for a kill-switch and timed activation provides the perfect application
+                                    scenario for our binary counter and effector modules."</p>
                             </div>
 
-                            <div class="insight-block zju-insight">
-                                <h4>HunanU's View:</h4>
-                                <p>"HKU's use of a smart, biomarker-responsive (NO) hydrogel matrix provides fantastic
-                                    insights into how we might encapsulate our probiotics to only release naringenin
-                                    during acute inflammation."</p>
+                            <div class="insight-block">
+                                <h4>SYPHU-China's View:</h4>
+                                <!--[cite: 17] -->
+                                <p>"We emphasize 'treating diseases at the source'. USTC's intracellular clock provides
+                                    the precise temporal guidance our multifaceted regulatory system needs to lower
+                                    mutation-driven escape risks."</p>
                             </div>
 
                             <button class="btn-switch-view">Switch Viewing Direction</button>
@@ -327,10 +355,159 @@
 
                 <div class="team-card-frame team-right">
                     <div class="frame-inner">
-                        <span class="location-tag">Changsha</span>
-                        <h2>HunanU</h2>
-                        <p class="project-title">NariViva</p>
-                        <p class="project-sub">Living Biotherapeutic for GSM</p>
+                        <span class="location-tag">Shenyang</span>
+                        <h2>SYPHU-China</h2>
+                        <p class="project-title">LBP-Mototype</p>
+                        <p class="project-sub">Live Biotherapeutic</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Card 05 · LZU-CHINA × ZJUT-China -->
+            <section class="pair-section">
+                <div class="team-card-frame team-left">
+                    <div class="frame-inner">
+                        <span class="location-tag">Lanzhou</span>
+                        <h2>LZU-CHINA</h2>
+                        <p class="project-title">Sense-Report-Intervene</p>
+                        <p class="project-sub">QS Pathogen Therapy</p>
+                    </div>
+                </div>
+
+                <div class="window-card">
+                    <div class="window-inner">
+                        <div class="window-front">
+                            <div class="card-header">
+                                <h3>Framed View Card</h3>
+                                <div class="pair-badge">LZU-CHINA × ZJUT-China</div>
+                            </div>
+
+                            <div class="content-block">
+                                <h4>Why We Connect</h4>
+                                <!--[cite: 17] -->
+                                <p>Both independently selected the exact same probiotic chassis (EcN-1917) as their
+                                    intestinal "sentinel," yet guard entirely different checkpoints covering the two
+                                    core threats to intestinal health: acute infection vs. chronic carcinogenesis.</p>
+                            </div>
+
+                            <div class="content-block">
+                                <h4>Joint Output</h4>
+                                <!--[cite: 17] -->
+                                <p>A comparative study on programming the same bacterial chassis for completely
+                                    different temporal responses: immediate intervention vs. long-term risk warning.</p>
+                            </div>
+
+                            <button class="btn-push-window">Push Open This Window</button>
+                        </div>
+
+                        <div class="window-back">
+                            <div class="card-header">
+                                <h3>What We See in Each Other</h3>
+                            </div>
+
+                            <div class="insight-block">
+                                <h4>LZU-CHINA's View:</h4>
+                                <!--[cite: 17] -->
+                                <p>"We use quorum sensing to target acute infectious diarrhea. ZJUT's ability to sense
+                                    faint molecular signals preceding carcinogenesis demonstrates the incredible
+                                    sensitivity that can be achieved with EcN-1917."</p>
+                            </div>
+
+                            <div class="insight-block">
+                                <h4>ZJUT-China's View:</h4>
+                                <!--[cite: 17] -->
+                                <p>"Our G-SCOUT acts as an early warning for colorectal cancer. LZU's integrated
+                                    'sense-report-intervene' model inspires us to think about how our screening bacteria
+                                    could eventually be upgraded to release therapeutics directly upon detecting
+                                    danger."</p>
+                            </div>
+
+                            <button class="btn-switch-view">Switch Viewing Direction</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="team-card-frame team-right">
+                    <div class="frame-inner">
+                        <span class="location-tag">Hangzhou</span>
+                        <h2>ZJUT-China</h2>
+                        <p class="project-title">G-SCOUT</p>
+                        <p class="project-sub">Probiotic CRC Screening</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Card 06 · JLU-FBH × SUSTech-BIO -->
+            <section class="pair-section">
+                <div class="team-card-frame team-left">
+                    <div class="frame-inner">
+                        <span class="location-tag">Changchun</span>
+                        <h2>JLU-FBH</h2>
+                        <p class="project-title">CirCure</p>
+                        <p class="project-sub">TNBC circRNA Vaccine</p>
+                    </div>
+                </div>
+
+                <div class="window-card">
+                    <div class="window-inner">
+                        <div class="window-front">
+                            <div class="card-header">
+                                <h3>Framed View Card</h3>
+                                <div class="pair-badge">JLU-FBH × SUSTech-BIO</div>
+                            </div>
+
+                            <div class="content-block">
+                                <h4>Why We Connect</h4>
+                                <!--[cite: 17] -->
+                                <p>Both teams work on RNA as a "messenger molecule," but stand at opposite ends of
+                                    information processing. JLU-FBH encodes multiple tumor epitopes into a brand-new
+                                    circRNA ("writing" from scratch), while SUSTech-BIO performs localized base editing
+                                    on existing APOE4 mRNA ("revising" existing information).</p>
+                            </div>
+
+                            <div class="content-block">
+                                <h4>Joint Output</h4>
+                                <!--[cite: 17] -->
+                                <p>Together they cover the two fundamental paradigms of RNA engineering: creating new
+                                    messengers and revising old ones, applied to completely different disease models.
+                                </p>
+                            </div>
+
+                            <button class="btn-push-window">Push Open This Window</button>
+                        </div>
+
+                        <div class="window-back">
+                            <div class="card-header">
+                                <h3>What We See in Each Other</h3>
+                            </div>
+
+                            <div class="insight-block">
+                                <h4>JLU-FBH's View:</h4>
+                                <!--[cite: 17] -->
+                                <p>"We leverage the stability of circRNA's closed loop in the spirit of 'harmony in
+                                    diversity'. SUSTech's targeted delivery design provides valuable insights for how we
+                                    might direct our vaccines more precisely."</p>
+                            </div>
+
+                            <div class="insight-block">
+                                <h4>SUSTech-BIO's View:</h4>
+                                <!--[cite: 17] -->
+                                <p>"We edit existing genes to produce different protein versions, echoing 'changing
+                                    scenery with every step'. JLU's computational pipeline for screening high MHC-I
+                                    binding affinity epitopes is a masterclass in predictive structural design."</p>
+                            </div>
+
+                            <button class="btn-switch-view">Switch Viewing Direction</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="team-card-frame team-right">
+                    <div class="frame-inner">
+                        <span class="location-tag">Shenzhen</span>
+                        <h2>SUSTech-BIO</h2>
+                        <p class="project-title">ORCA</p>
+                        <p class="project-sub">RNA Editing</p>
                     </div>
                 </div>
             </section>
@@ -340,6 +517,7 @@
         </div>
     </div>
 
+    <!-- 引入分离的 JS 文件 -->
     <script src="framed-views-script.js"></script>
 </body>
 
