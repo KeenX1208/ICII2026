@@ -1,3 +1,4 @@
+/* ================= 基础重置 ================= */
 body,
 html {
     margin: 0;
@@ -8,6 +9,23 @@ html {
     overflow-x: hidden;
 }
 
+.bg-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+}
+
+.bg-layer {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.5;
+}
+
+/* ================= 统一导航栏样式 ================= */
 .global-nav {
     position: fixed;
     top: 0;
@@ -95,79 +113,175 @@ html {
     z-index: 10;
 }
 
-.bg-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: -1;
-}
-
-.bg-layer {
-    width: 100%;
+/* 高阶毛玻璃下拉菜单 */
+.dropdown {
+    position: relative;
+    display: flex;
+    align-items: center;
     height: 100%;
-    object-fit: cover;
-    opacity: 0.5;
 }
 
-/* 浮动介绍语 */
-.fixed-intro {
-    position: fixed;
-    top: 50%;
-    left: 80px;
-    transform: translateY(-50%);
-    width: 320px;
-    z-index: 5;
-    background: rgba(244, 236, 216, 0.65);
-    padding: 30px;
+.dropdown .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.dropdown-arrow {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: rotate(45deg) translateY(-2px);
+    transition: transform 0.3s ease;
+}
+
+.dropdown:hover .dropdown-arrow {
+    transform: rotate(225deg) translate(-2px, -2px);
+}
+
+.dropdown-content {
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    top: 60px;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    background-color: rgba(250, 246, 235, 0.95);
+    min-width: 240px;
+    box-shadow: 0px 15px 35px rgba(0, 0, 0, 0.12);
+    z-index: 999;
     border-radius: 8px;
-    border: 1px solid rgba(212, 196, 183, 0.6);
-    backdrop-filter: blur(8px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    border: 1px solid #d4c4b7;
+    backdrop-filter: blur(12px);
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-.fixed-intro h2 {
-    color: #8b2b2b;
-    font-size: 1.6rem;
-    margin-top: 0;
-    margin-bottom: 15px;
-    letter-spacing: 1px;
+.dropdown:hover .dropdown-content {
+    visibility: visible;
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
 }
 
-.fixed-intro p {
-    font-size: 1rem;
-    line-height: 1.7;
-    color: #4a3b32;
-    text-align: justify;
-    margin-bottom: 25px;
-}
-
-.scroll-hint {
+.dropdown-content a {
+    color: #4a3b32 !important;
+    text-decoration: none !important;
+    padding: 16px 20px;
+    display: block;
+    font-size: 0.95rem;
     font-weight: bold;
-    color: #a84b4b;
-    font-size: 0.9rem;
-    letter-spacing: 1px;
-    text-transform: uppercase;
+    text-align: center;
+    transition: all 0.3s ease;
+    border-bottom: 1px dashed rgba(212, 196, 183, 0.6);
 }
 
+.dropdown-content a:last-child {
+    border-bottom: none;
+}
+
+.dropdown-content a:hover {
+    background-color: #8b2b2b;
+    color: #f9f6ef !important;
+    letter-spacing: 0.5px;
+}
+
+/* 移动端汉堡菜单 */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 6px;
+    cursor: pointer;
+    z-index: 10001;
+}
+
+.hamburger span {
+    width: 28px;
+    height: 3px;
+    background-color: #8b2b2b;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+}
+
+/* ================= 借景相望：排版与动画结构 ================= */
 .horizontal-container {
     width: 100vw;
     height: 100vh;
-    position: relative;
-    z-index: 10;
+    overflow: hidden;
 }
 
 .scroll-wrapper {
     display: flex;
-    height: 100%;
     width: max-content;
+    height: 100vh;
 }
 
 .spacer-section {
     width: 450px;
     height: 100vh;
     flex-shrink: 0;
+}
+
+.intro-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    scroll-snap-align: center;
+}
+
+.intro-box {
+    background: rgba(244, 236, 216, 0.85);
+    padding: 60px 80px;
+    border-radius: 12px;
+    border: 1px dashed #d4c4b7;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+    max-width: 850px;
+    text-align: center;
+    backdrop-filter: blur(10px);
+    margin: 0 auto;
+}
+
+.intro-box h2 {
+    font-size: 2.8rem;
+    color: #8b2b2b;
+    margin-bottom: 25px;
+    letter-spacing: 2px;
+}
+
+.intro-box p {
+    font-size: 1.25rem;
+    color: #4a3b32;
+    line-height: 1.8;
+    margin-bottom: 35px;
+    text-align: justify;
+}
+
+.intro-box .scroll-hint {
+    font-size: 1.2rem;
+    color: #a84b4b;
+    font-weight: bold;
+    letter-spacing: 2px;
+    animation: swipePulse 2s infinite;
+}
+
+@keyframes swipePulse {
+    0% {
+        opacity: 0.5;
+        transform: translateX(0);
+    }
+
+    50% {
+        opacity: 1;
+        transform: translateX(15px);
+    }
+
+    100% {
+        opacity: 0.5;
+        transform: translateX(0);
+    }
 }
 
 .pair-section {
@@ -181,7 +295,7 @@ html {
     box-sizing: border-box;
 }
 
-/* 团队侧边立柱卡片 - 增加高度至 600px */
+/* 团队侧边立柱卡片 */
 .team-card-frame {
     width: 240px;
     height: 600px;
@@ -241,7 +355,7 @@ html {
     line-height: 1.5;
 }
 
-/* 中间核心窗户卡片 - 高级微透视效果，同步高度至 600px */
+/* 中间核心窗户卡片 */
 .window-card {
     width: 700px;
     height: 600px;
@@ -260,7 +374,6 @@ html {
     transform: rotateY(180deg);
 }
 
-/* 微调窗户内部的上下边距 */
 .window-front,
 .window-back {
     position: absolute;
@@ -276,6 +389,14 @@ html {
     box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.5), 0 15px 35px rgba(0, 0, 0, 0.05);
     display: flex;
     flex-direction: column;
+    overflow-y: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.window-front::-webkit-scrollbar,
+.window-back::-webkit-scrollbar {
+    display: none;
 }
 
 .window-back {
@@ -381,99 +502,7 @@ html {
     color: #f9f6ef;
 }
 
-/* ================= 高阶下拉菜单样式 ================= */
-.dropdown {
-    position: relative;
-    display: flex;
-    align-items: center;
-    height: 100%;
-}
-
-.dropdown .nav-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-/* 纯 CSS 绘制精美小箭头 */
-.dropdown-arrow {
-    display: inline-block;
-    width: 6px;
-    height: 6px;
-    border-right: 2px solid currentColor;
-    border-bottom: 2px solid currentColor;
-    transform: rotate(45deg) translateY(-2px);
-    transition: transform 0.3s ease;
-}
-
-.dropdown:hover .dropdown-arrow {
-    transform: rotate(225deg) translate(-2px, -2px);
-}
-
-.dropdown-content {
-    visibility: hidden;
-    opacity: 0;
-    position: absolute;
-    top: 60px;
-    left: 50%;
-    transform: translateX(-50%) translateY(10px);
-    background-color: rgba(250, 246, 235, 0.95);
-    min-width: 240px;
-    box-shadow: 0px 15px 35px rgba(0, 0, 0, 0.12);
-    z-index: 999;
-    border-radius: 8px;
-    border: 1px solid #d4c4b7;
-    backdrop-filter: blur(12px);
-    overflow: hidden;
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-}
-
-.dropdown:hover .dropdown-content {
-    visibility: visible;
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
-}
-
-.dropdown-content a {
-    color: #4a3b32 !important;
-    text-decoration: none !important;
-    padding: 16px 20px;
-    display: block;
-    font-size: 0.95rem;
-    font-weight: bold;
-    text-align: center;
-    transition: all 0.3s ease;
-    border-bottom: 1px dashed rgba(212, 196, 183, 0.6);
-}
-
-.dropdown-content a:last-child {
-    border-bottom: none;
-}
-
-.dropdown-content a:hover {
-    background-color: #8b2b2b;
-    color: #f9f6ef !important;
-    letter-spacing: 0.5px;
-}
-
-/* ================= 全局导航栏移动端适配 ================= */
-.hamburger {
-    display: none;
-    flex-direction: column;
-    gap: 6px;
-    cursor: pointer;
-    z-index: 10001;
-    /* 确保按钮在最上层 */
-}
-
-.hamburger span {
-    width: 28px;
-    height: 3px;
-    background-color: #8b2b2b;
-    border-radius: 3px;
-    transition: all 0.3s ease;
-}
-
+/* ================= 移动端降级适配 (Max 900px) ================= */
 @media (max-width: 900px) {
     .global-nav {
         padding: 0 20px;
@@ -500,7 +529,6 @@ html {
         align-items: center;
     }
 
-    /* 展开后的菜单 */
     .nav-right.is-active {
         height: 360px;
         padding: 10px 0;
@@ -523,7 +551,6 @@ html {
         justify-content: center;
     }
 
-    /* 移动端下拉菜单改为点击展开，非悬浮 */
     .dropdown-content {
         position: relative;
         top: 0;
@@ -535,7 +562,6 @@ html {
         border: none;
         background: rgba(139, 43, 43, 0.05);
         display: none;
-        /* 默认隐藏 */
         opacity: 1;
         visibility: visible;
         border-radius: 0;
@@ -550,7 +576,6 @@ html {
         border-bottom: 1px solid rgba(212, 196, 183, 0.3);
     }
 
-    /* 汉堡按钮变成叉号动画 */
     .hamburger.is-active span:nth-child(1) {
         transform: translateY(9px) rotate(45deg);
     }
@@ -562,15 +587,25 @@ html {
     .hamburger.is-active span:nth-child(3) {
         transform: translateY(-9px) rotate(-45deg);
     }
-}
 
-/* ================= 借景相望 移动端适配 (终极修复版) ================= */
-@media (max-width: 900px) {
-    .fixed-intro {
-        display: none;
+    .horizontal-container {
+        overflow-x: hidden !important;
+        overflow-y: auto !important;
+        scroll-snap-type: y mandatory;
+        height: 100vh;
+        width: 100vw;
     }
 
-    /* 隐藏左下角固定提示语 */
+    .scroll-wrapper {
+        flex-direction: column !important;
+        width: 100vw !important;
+        height: auto !important;
+        transform: none !important;
+    }
+
+    .intro-slide {
+        scroll-snap-align: start;
+    }
 
     .intro-box {
         padding: 30px 20px;
@@ -585,36 +620,21 @@ html {
         font-size: 1.1rem;
     }
 
-    /* 解除横向滚动，改为垂直堆叠 */
-    .horizontal-container {
-        overflow-x: hidden;
-        overflow-y: auto;
-        scroll-snap-type: y mandatory;
-    }
-
-    .scroll-wrapper {
-        flex-direction: column;
-        width: 100vw;
-        height: auto;
-    }
-
-    /* 每一组变成上下排列，增加间距和上下 padding */
     .pair-section {
         flex-direction: column;
         justify-content: center;
-        height: auto;
         min-height: 100vh;
+        height: auto;
         padding: 110px 20px 60px;
         gap: 25px;
         scroll-snap-align: start;
     }
 
-    /* 核心修复 1：强制重置左右团队卡片的半圆形状，统一变成圆角矩形 */
     .team-card-frame {
         width: 100%;
         max-width: 350px;
-        height: auto;
         min-height: 140px;
+        height: auto;
         border-radius: 12px !important;
         border: 1px solid #d4c4b7 !important;
         padding: 15px;
@@ -624,7 +644,6 @@ html {
         box-sizing: border-box;
     }
 
-    /* 重置内部虚线框的形状 */
     .frame-inner {
         border-radius: 8px !important;
         width: 100%;
@@ -634,19 +653,16 @@ html {
         box-sizing: border-box;
     }
 
-    /* 核心修复 2：增加中间窗户卡片的固定高度，给文字足够的呼吸空间 */
     .window-card {
         width: 100%;
         max-width: 350px;
         height: 520px;
-        /* 增加高度，防止英文长文本溢出 */
     }
 
     .window-inner {
         height: 100%;
     }
 
-    /* 调整内部文本排版，稍微缩小字号适应手机屏 */
     .window-front,
     .window-back {
         padding: 25px 20px;
@@ -664,11 +680,7 @@ html {
         margin-bottom: 8px;
     }
 
-    .content-block p {
-        font-size: 0.9rem;
-        line-height: 1.6;
-    }
-
+    .content-block p,
     .insight-block p {
         font-size: 0.9rem;
         line-height: 1.6;
