@@ -61,7 +61,6 @@
         .jingguan-18{
             height: 8%;
         }
-        /* ===== 原有 1-16 ===== */
         .menpai-1  { top: 31%; left: 34%; }
         .menpai-2  { top: 42%; left: 60%; }
         .menpai-3  { top: 10%; left: 62%; }
@@ -96,13 +95,13 @@
         .jingguan-15 { top: 85%; left: 82%; }
         .jingguan-16 { top: 96%; left: 45%; }
 
-        /* ===== 新增 17-22（6 个补齐队伍）===== */
         .menpai-17 { top: 15%;  left: 20%; }
         .menpai-18 { top: 12%; left: 30%; }
         .menpai-19 { top: 40%; left: 5%;  }
         .menpai-20 { top: 50%; left: 92%; }
         .menpai-21 { top: 78%; left: 5%;  }
         .menpai-22 { top: 86%; left: 35%; }
+        .menpai-23 { top: 92%; left: 72%; }
 
         .jingguan-17 { top: 10%;  left: 20%; }
         .jingguan-18 { top: 9%;  left: 30%; }
@@ -110,6 +109,7 @@
         .jingguan-20 { top: 45%; left: 92%; }
         .jingguan-21 { top: 73%; left: 5%;  }
         .jingguan-22 { top: 90%; left: 35%; }
+        .jingguan-23 {top:99%; left:72%;}
 
         .zhuzi1, .zhuzi2 {
             position: absolute; height: 35%; z-index: 5;
@@ -201,7 +201,6 @@
             <div class="jingguan jingguan-16" data-href="garden-atlas.html"><img src="./images/t4.png" alt=""></div>
             <div class="menpai menpai-16" data-href="garden-atlas.html">NEFU-China 2026</div>
 
-            <!-- ===== 新增 17-22（补齐 6 个）===== -->
             <div class="jingguan jingguan-17" data-href="garden-atlas.html"><img src="./images/红日.png" alt=""></div>
             <div class="menpai menpai-17" data-href="garden-atlas.html">BUCT-China</div>
 
@@ -220,6 +219,9 @@
             <div class="jingguan jingguan-22" data-href="garden-atlas.html"><img src="./images/竹.png" alt=""></div>
             <div class="menpai menpai-22" data-href="garden-atlas.html">SYPHU-China</div>
 
+            <div class="jingguan jingguan-23" data-href="garden-atlas.html"><img src="./images/竹.png" alt=""></div>
+            <div class="menpai menpai-23" data-href="garden-atlas.html">Nanjing-China</div>
+
             <div class="zhuzi1"><img src="./images/竹.png" alt=""></div>
             <div class="zhuzi2"><img src="./images/竹.png" alt=""></div>
             <div class="yanzi"><img src="./images/燕子.png" alt=""></div>
@@ -233,8 +235,7 @@
             });
         });
 
-        // 上限改为 22（16 + 6）
-        for (let i = 1; i <= 22; i++) {
+        for (let i = 1; i <= 23; i++) {
             const jg = document.querySelector('.jingguan-' + i);
             const mp = document.querySelector('.menpai-' + i);
             if (!jg || !mp) continue;
