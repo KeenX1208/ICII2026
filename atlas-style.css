@@ -6,7 +6,7 @@ html {
     font-family: "Helvetica Neue", Helvetica, Arial, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Serif SC", STSong, serif;
     color: #4a3b32;
     overflow-x: hidden;
-    scroll-behavior: smooth;
+    /* 移除 scroll-behavior: smooth; 以修复 GSAP ScrollTrigger 的跳闪冲突 */
 }
 
 .global-nav {
@@ -291,7 +291,6 @@ html {
 
 .card-content {
     padding: 45px 60px;
-    /* 增加左右内边距，让纯文本排版更有呼吸感 */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -543,7 +542,6 @@ html {
     margin-top: 0;
 }
 
-/* 头图（团队合照）保留宽屏横幅视觉，超出部分适度裁剪 */
 .modal-hero-img {
     width: 100%;
     max-height: 60vh;
@@ -553,18 +551,13 @@ html {
     margin-bottom: 50px;
 }
 
-/* 底部海报完全展示原始比例，有多大就展示多大，绝不裁剪 */
 .modal-poster-img {
     width: 100%;
     height: auto;
-    /* 高度自适应 */
     object-fit: contain;
-    /* 保证画面完整包含在内 */
     border-radius: 12px;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
     margin-bottom: 50px;
-    /* 如果觉得竖版海报太宽导致过长，可以解除下面这行的注释来限制最大宽度 */
-    /* max-width: 900px; margin-left: auto; margin-right: auto; display: block; */
 }
 
 .modal-text-section {
@@ -603,7 +596,6 @@ html {
     gap: 8px;
 }
 
-/* 纯 CSS 绘制精美小箭头 */
 .dropdown-arrow {
     display: inline-block;
     width: 6px;
@@ -671,7 +663,6 @@ html {
     gap: 6px;
     cursor: pointer;
     z-index: 10001;
-    /* 确保按钮在最上层 */
 }
 
 .hamburger span {
@@ -708,7 +699,6 @@ html {
         align-items: center;
     }
 
-    /* 展开后的菜单 */
     .nav-right.is-active {
         height: 360px;
         padding: 10px 0;
@@ -731,7 +721,6 @@ html {
         justify-content: center;
     }
 
-    /* 移动端下拉菜单改为点击展开，非悬浮 */
     .dropdown-content {
         position: relative;
         top: 0;
@@ -743,7 +732,6 @@ html {
         border: none;
         background: rgba(139, 43, 43, 0.05);
         display: none;
-        /* 默认隐藏 */
         opacity: 1;
         visibility: visible;
         border-radius: 0;
@@ -758,7 +746,6 @@ html {
         border-bottom: 1px solid rgba(212, 196, 183, 0.3);
     }
 
-    /* 汉堡按钮变成叉号动画 */
     .hamburger.is-active span:nth-child(1) {
         transform: translateY(9px) rotate(45deg);
     }
@@ -778,7 +765,6 @@ html {
         margin: 160px 20px 80px 20px;
     }
 
-    /* 侧边栏变顶部横排滑动 */
     .sidebar-nav {
         position: absolute;
         top: 80px;
@@ -819,7 +805,6 @@ html {
         white-space: nowrap;
     }
 
-    /* 卡片与弹窗自适应 */
     .intro-section {
         padding: 25px 20px;
         margin-bottom: 40px;

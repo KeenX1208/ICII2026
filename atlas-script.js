@@ -124,9 +124,6 @@ globalNavItems.forEach(item => {
 // ==========================================
 // 升级版：多弹窗 (Modal) 交互逻辑
 // ==========================================
-// ==========================================
-// 升级版：多弹窗 (Modal) 交互逻辑
-// ==========================================
 const approachBtns = document.querySelectorAll('.approach-btn');
 const closeBtns = document.querySelectorAll('.modal-close-btn');
 const allModals = document.querySelectorAll('.modal-overlay');
@@ -160,6 +157,7 @@ approachBtns.forEach(btn => {
             }
 
             targetModal.classList.add('is-active');
+            document.body.style.paddingRight = 'calc(100vw - 100%)'; // 补偿滚动条宽度，防止横向跳闪
             document.body.style.overflow = 'hidden'; // 防止背景继续滚动
         } else {
             console.error(`找不到 ID 为 modal-${teamId} 的弹窗代码，请检查 HTML！`);
@@ -174,6 +172,7 @@ closeBtns.forEach(btn => {
         if (modal) {
             modal.classList.remove('is-active');
             document.body.style.overflow = ''; // 恢复背景滚动
+            document.body.style.paddingRight = ''; // 恢复滚动条空间
         }
     });
 });
@@ -184,6 +183,7 @@ allModals.forEach(modal => {
         if (e.target === modal) {
             modal.classList.remove('is-active');
             document.body.style.overflow = '';
+            document.body.style.paddingRight = '';
         }
     });
 });
@@ -203,8 +203,8 @@ if (hamburger) {
 
 if (mobileDropdownToggle) {
     mobileDropdownToggle.addEventListener('click', (e) => {
+        e.preventDefault(); // 移动到外层：无论桌面端还是移动端，都阻止 href="#" 的默认回顶跳闪行为
         if (window.innerWidth <= 900) {
-            e.preventDefault(); // 移动端点击不跳转，而是展开子菜单
             dropdownContent.classList.toggle('is-expanded');
             const arrow = mobileDropdownToggle.querySelector('.dropdown-arrow');
             if (dropdownContent.classList.contains('is-expanded')) {
