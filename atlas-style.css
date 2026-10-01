@@ -6,7 +6,7 @@ html {
     font-family: "Helvetica Neue", Helvetica, Arial, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Serif SC", STSong, serif;
     color: #4a3b32;
     overflow-x: hidden;
-    scroll-behavior: smooth;
+    /* 移除了 scroll-behavior: smooth; 避免与 JS 动画冲突 */
 }
 
 .global-nav {
@@ -103,9 +103,8 @@ html {
     width: 100vw;
     height: 100vh;
     z-index: -1;
-    /* 固定背景单独放一个合成层即可；没有任何动画作用于它，
-       不需要常驻 will-change（常驻反而白占一整个全屏图层） */
     transform: translateZ(0);
+    will-change: transform;
 }
 
 .bg-layer {
@@ -127,12 +126,23 @@ html {
     padding: 20px 10px;
     z-index: 90;
     box-shadow: 5px 5px 0px rgba(139, 43, 43, 0.15);
-    /* 原先的 6s 无限漂浮动画会让整块带阴影的 fixed 面板持续重新合成，
-       在 Windows 下造成全屏卡顿/闪烁，现已移除；
-       仅提升为独立合成层，保证内部列表滚动时不与背景互相重绘 */
-    transform: translateZ(0);
+    animation: floatSidebar 6s ease-in-out infinite;
     display: flex;
     flex-direction: column;
+}
+
+@keyframes floatSidebar {
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
 }
 
 .sidebar-nav::before {
@@ -249,7 +259,7 @@ html {
     font-size: 1.15rem;
     color: #4a3b32;
     line-height: 1.8;
-    max-width: 800px;
+    max-width: 860px;
     margin: 0 auto;
 }
 
@@ -259,6 +269,7 @@ html {
     gap: 60px;
 }
 
+/* ======== 卡片动画与样式修复 ======== */
 .team-card {
     display: block;
     position: relative;
@@ -267,23 +278,29 @@ html {
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-    /* 只过渡合成属性；transform 交给 GSAP 做入场，hover 上浮用独立的
-       translate 属性实现，避免 CSS 补间追赶 GSAP 每帧写入造成的抖闪 */
-    transition: box-shadow 0.4s ease, border-color 0.3s ease, translate 0.4s ease;
+    /* 统一由类名控制动画过渡，防止闪跳 */
+    transition: opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.4s ease, border-color 0.4s ease;
     opacity: 0;
     transform: translateY(40px);
     scroll-margin-top: 120px;
 }
 
-.team-card:hover {
-    translate: 0 -5px;
+/* GSAP 触发的进场可见状态 */
+.team-card.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 进场后保留 Hover 悬浮交互 */
+.team-card.is-visible:hover {
+    transform: translateY(-5px);
     box-shadow: 0 12px 30px rgba(139, 43, 43, 0.15);
     border-color: #ffb7c5;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
 .card-content {
     padding: 45px 60px;
-    /* 增加左右内边距，让纯文本排版更有呼吸感 */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -441,18 +458,13 @@ html {
     justify-content: center;
     align-items: center;
     opacity: 0;
-    visibility: hidden;
     pointer-events: none;
-    /* 关闭动画结束后再隐藏，让浏览器彻底跳过 24 个全屏弹窗的绘制与模糊计算；
-       打开时 visibility 立即生效，不影响淡入 */
-    transition: opacity 0.4s ease, visibility 0s linear 0.4s;
+    transition: opacity 0.4s ease;
 }
 
 .modal-overlay.is-active {
     opacity: 1;
-    visibility: visible;
     pointer-events: auto;
-    transition: opacity 0.4s ease, visibility 0s;
 }
 
 .modal-content {
@@ -540,7 +552,6 @@ html {
     margin-top: 0;
 }
 
-/* 头图（团队合照）保留宽屏横幅视觉，超出部分适度裁剪 */
 .modal-hero-img {
     width: 100%;
     max-height: 60vh;
@@ -550,18 +561,13 @@ html {
     margin-bottom: 50px;
 }
 
-/* 底部海报完全展示原始比例，有多大就展示多大，绝不裁剪 */
 .modal-poster-img {
     width: 100%;
     height: auto;
-    /* 高度自适应 */
     object-fit: contain;
-    /* 保证画面完整包含在内 */
     border-radius: 12px;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
     margin-bottom: 50px;
-    /* 如果觉得竖版海报太宽导致过长，可以解除下面这行的注释来限制最大宽度 */
-    /* max-width: 900px; margin-left: auto; margin-right: auto; display: block; */
 }
 
 .modal-text-section {
@@ -600,7 +606,6 @@ html {
     gap: 8px;
 }
 
-/* 纯 CSS 绘制精美小箭头 */
 .dropdown-arrow {
     display: inline-block;
     width: 6px;
@@ -668,7 +673,6 @@ html {
     gap: 6px;
     cursor: pointer;
     z-index: 10001;
-    /* 确保按钮在最上层 */
 }
 
 .hamburger span {
@@ -705,7 +709,6 @@ html {
         align-items: center;
     }
 
-    /* 展开后的菜单 */
     .nav-right.is-active {
         height: 360px;
         padding: 10px 0;
@@ -728,7 +731,6 @@ html {
         justify-content: center;
     }
 
-    /* 移动端下拉菜单改为点击展开，非悬浮 */
     .dropdown-content {
         position: relative;
         top: 0;
@@ -740,7 +742,6 @@ html {
         border: none;
         background: rgba(139, 43, 43, 0.05);
         display: none;
-        /* 默认隐藏 */
         opacity: 1;
         visibility: visible;
         border-radius: 0;
@@ -755,7 +756,6 @@ html {
         border-bottom: 1px solid rgba(212, 196, 183, 0.3);
     }
 
-    /* 汉堡按钮变成叉号动画 */
     .hamburger.is-active span:nth-child(1) {
         transform: translateY(9px) rotate(45deg);
     }
@@ -775,7 +775,6 @@ html {
         margin: 160px 20px 80px 20px;
     }
 
-    /* 侧边栏变顶部横排滑动 */
     .sidebar-nav {
         position: absolute;
         top: 80px;
@@ -789,7 +788,7 @@ html {
         border-bottom: 2px solid #8b2b2b;
         border-radius: 0;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-        transform: none;
+        animation: none;
         z-index: 90;
     }
 
@@ -816,7 +815,6 @@ html {
         white-space: nowrap;
     }
 
-    /* 卡片与弹窗自适应 */
     .intro-section {
         padding: 25px 20px;
         margin-bottom: 40px;
