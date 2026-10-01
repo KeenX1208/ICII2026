@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
     <title>Cell App | 凝聚交互</title>
-    <script src="./vendor/gsap/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -475,7 +475,7 @@
     <nav class="global-nav">
         <div class="nav-left">
             <a href="index.html" class="logo-link">
-                <img src="images/logo-nav.webp" alt="Team Logo" class="nav-logo">
+                <img src="images/纵向-亮色背景.png" alt="Team Logo" class="nav-logo">
                 <span class="nav-brand">ICII 2026</span>
             </a>
         </div>
@@ -490,15 +490,15 @@
     </nav>
 
     <div class="img" id="mainScene">
-        <img src="images/bg-cellapp.webp" alt="背景" class="bg" style="width:100%; height:100%; object-fit:cover; z-index:0;" />
-        <img src="images/pavilion.webp" alt="亭台" class="tingzi" />
-        <img src="images/bamboo-1.webp" alt="修竹" class="zhu" />
-        <img src="images/bamboo-1.webp" alt="丛竹" class="zhuzi" />
-        <img src="images/road-1.webp" alt="小径" class="lu" />
-        <img src="images/swallow-1.webp" alt="飞燕" class="yanzi" />
-        <img src="images/swallow-2.webp" alt="小燕子" class="xiaoyanzi" />
-        <img src="images/figure.webp" alt="人" class="ren" />
-        <img src="images/red-sun.webp" alt="红日" class="hongri" />
+        <img src="images/bg2.png" alt="背景" class="bg" style="width:100%; height:100%; object-fit:cover; z-index:0;" />
+        <img src="images/亭子.png" alt="亭台" class="tingzi" />
+        <img src="images/竹.png" alt="修竹" class="zhu" />
+        <img src="images/竹.png" alt="丛竹" class="zhuzi" />
+        <img src="images/路.png" alt="小径" class="lu" />
+        <img src="images/燕子.png" alt="飞燕" class="yanzi" />
+        <img src="images/小燕子.png" alt="小燕子" class="xiaoyanzi" />
+        <img src="images/人.png" alt="人" class="ren" />
+        <img src="images/红日.png" alt="红日" class="hongri" />
     </div>
 
     <div class="button-group">
@@ -517,9 +517,9 @@
     </div>
 
     <div class="img2" id="scene2">
-        <img src="images/snowfield.webp" alt="" class="xuedi" />
-        <img src="images/figure.webp" alt="" class="ren2" />
-        <img src="images/peach-tree.webp" alt="" class="tstingzi" />
+        <img src="images/雪地.jpg" alt="" class="xuedi" />
+        <img src="images/人.png" alt="" class="ren2" />
+        <img src="images/桃树.png" alt="" class="tstingzi" />
     </div>
     <div class="dialog-box" id="dialogBox2">
         <div class="dialog-text">雪景中的<span class="highlight">温度响应</span></div>
@@ -670,7 +670,7 @@
             }
             swapBtn && swapBtn.addEventListener('click', function () {
                 if (isAnimating) return; isAnimating = !0; const lu = document.querySelector('.lu'); if (!lu) { isAnimating = !1; return; }
-                const newSrc = !isSwapped ? 'images/road-2.webp' : 'images/road-1.webp'; const clone = lu.cloneNode(!0); clone.src = newSrc;
+                const newSrc = !isSwapped ? 'images/路2.png' : 'images/路.png'; const clone = lu.cloneNode(!0); clone.src = newSrc;
                 clone.style.cssText = `position:absolute; top:${lu.style.top || '25%'}; left:${lu.style.left || '35%'}; width:${lu.style.width || '40%'}; height:auto; opacity:1; z-index:${lu.style.zIndex || '1'}; pointer-events:none;`;
                 lu.parentElement.insertBefore(clone, lu);
                 const tl = gsap.timeline({ onComplete: () => { lu.remove(); clone.className = lu.className; clone.style.clipPath = 'none'; clone.style.position = 'absolute'; clone.style.pointerEvents = 'none'; isSwapped = !isSwapped; isAnimating = !1; setTimeout(showCenterDialog, 300); } });
