@@ -360,7 +360,7 @@ html {
     line-height: 1.6;
     font-size: 0.95rem;
     color: #4a3b32;
-    text-align: justify;
+    text-align: left;
 }
 
 .tags-wrapper {
@@ -582,7 +582,7 @@ html {
     font-size: 1.15rem;
     line-height: 1.9;
     color: #4a3b32;
-    text-align: justify;
+    text-align: left;
     margin-bottom: 25px;
 }
 
