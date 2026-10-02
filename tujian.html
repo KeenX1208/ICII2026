@@ -12,11 +12,12 @@
             display: flex; justify-content: center; align-items: center;
             background-color: #f0f0f0; overflow: hidden;
         }
-        .image-wrapper { position: relative; max-width: 100%; max-height: 100%; }
+        /* 包裹层尺寸由 JS 按底图宽高比以 cover 方式计算（等比放大铺满视口），
+           热点的百分比定位始终相对它，因此与底图永远对齐、不会跑偏 */
+        .image-wrapper { position: relative; flex-shrink: 0; }
         .image-wrapper > img {
-            max-width: 100%; max-height: 100%;
-            width: auto; height: auto;
-            display: block; object-fit: contain;
+            width: 100%; height: 100%;
+            display: block; object-fit: fill;
         }
         .menpai {
             position: absolute;
@@ -45,7 +46,7 @@
             transition: transform 0.3s ease, filter 0.3s ease;
             filter: drop-shadow(0 0 0 transparent);
         }
-        .jingguan img { height: 100%; width: auto; display: block; pointer-events: none; }
+        .jingguan img { height: 100%; width: 100%; display: block; pointer-events: none; }
         .menpai.hovered {
             transform: translate(-50%, -50%) scale(1.15);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45);
@@ -61,6 +62,7 @@
         .jingguan-18{
             height: 8%;
         }
+        /* ===== 原有 1-16 ===== */
         .menpai-1  { top: 31%; left: 34%; }
         .menpai-2  { top: 42%; left: 60%; }
         .menpai-3  { top: 10%; left: 62%; }
@@ -95,13 +97,13 @@
         .jingguan-15 { top: 85%; left: 82%; }
         .jingguan-16 { top: 96%; left: 45%; }
 
+        /* ===== 新增 17-22（6 个补齐队伍）===== */
         .menpai-17 { top: 15%;  left: 20%; }
         .menpai-18 { top: 12%; left: 30%; }
         .menpai-19 { top: 40%; left: 5%;  }
         .menpai-20 { top: 50%; left: 92%; }
         .menpai-21 { top: 78%; left: 5%;  }
         .menpai-22 { top: 86%; left: 35%; }
-        .menpai-23 { top: 92%; left: 72%; }
 
         .jingguan-17 { top: 10%;  left: 20%; }
         .jingguan-18 { top: 9%;  left: 30%; }
@@ -109,7 +111,6 @@
         .jingguan-20 { top: 45%; left: 92%; }
         .jingguan-21 { top: 73%; left: 5%;  }
         .jingguan-22 { top: 90%; left: 35%; }
-        .jingguan-23 {top:99%; left:72%;}
 
         .zhuzi1, .zhuzi2 {
             position: absolute; height: 35%; z-index: 5;
@@ -181,7 +182,7 @@
             <div class="menpai menpai-9" data-href="garden-atlas.html">CAU-China</div>
 
             <div class="jingguan jingguan-10" data-href="garden-atlas.html"><img src="./images/t1.png" alt=""></div>
-            <div class="menpai menpai-10" data-href="garden-atlas.html">NAU-CHINA</div>
+            <div class="menpai menpai-10" data-href="garden-atlas.html">CUHKSZ</div>
 
             <div class="jingguan jingguan-11" data-href="garden-atlas.html"><img src="./images/t2.png" alt=""></div>
             <div class="menpai menpai-11" data-href="garden-atlas.html">HKU-HongKong</div>
@@ -201,6 +202,7 @@
             <div class="jingguan jingguan-16" data-href="garden-atlas.html"><img src="./images/t4.png" alt=""></div>
             <div class="menpai menpai-16" data-href="garden-atlas.html">NEFU-China 2026</div>
 
+            <!-- ===== 新增 17-22（补齐 6 个）===== -->
             <div class="jingguan jingguan-17" data-href="garden-atlas.html"><img src="./images/红日.png" alt=""></div>
             <div class="menpai menpai-17" data-href="garden-atlas.html">BUCT-China</div>
 
@@ -214,13 +216,10 @@
             <div class="menpai menpai-20" data-href="garden-atlas.html">LZU-CHINA</div>
 
             <div class="jingguan jingguan-21" data-href="garden-atlas.html"><img src="./images/台.png" alt=""></div>
-            <div class="menpai menpai-21" data-href="garden-atlas.html">CUHKSZ</div>
+            <div class="menpai menpai-21" data-href="garden-atlas.html">NAU-CHINA</div>
 
             <div class="jingguan jingguan-22" data-href="garden-atlas.html"><img src="./images/竹.png" alt=""></div>
             <div class="menpai menpai-22" data-href="garden-atlas.html">SYPHU-China</div>
-
-            <div class="jingguan jingguan-23" data-href="garden-atlas.html"><img src="./images/竹.png" alt=""></div>
-            <div class="menpai menpai-23" data-href="garden-atlas.html">Nanjing-China</div>
 
             <div class="zhuzi1"><img src="./images/竹.png" alt=""></div>
             <div class="zhuzi2"><img src="./images/竹.png" alt=""></div>
@@ -229,13 +228,36 @@
     </div>
 
     <script>
+        // 底图等比放大铺满整个视口（cover）：包裹层与底图同比例，
+        // 放大到宽、高至少一边铺满视口，超出部分由 .background 裁切；
+        // 热点坐标相对包裹层，因此任何屏幕比例下都与底图对齐
+        const wrapper = document.querySelector('.image-wrapper');
+        const bgImg = wrapper.querySelector('img');
+
+        function fitCover() {
+            const iw = bgImg.naturalWidth;
+            const ih = bgImg.naturalHeight;
+            if (!iw || !ih) return;
+            const scale = Math.max(window.innerWidth / iw, window.innerHeight / ih);
+            wrapper.style.width = (iw * scale) + 'px';
+            wrapper.style.height = (ih * scale) + 'px';
+        }
+
+        if (bgImg.complete && bgImg.naturalWidth) {
+            fitCover();
+        } else {
+            bgImg.addEventListener('load', fitCover, { once: true });
+        }
+        window.addEventListener('resize', fitCover);
+
         document.querySelectorAll('[data-href]').forEach(el => {
             el.addEventListener('click', () => {
                 window.location.href = el.dataset.href;
             });
         });
 
-        for (let i = 1; i <= 23; i++) {
+        // 上限改为 22（16 + 6）
+        for (let i = 1; i <= 22; i++) {
             const jg = document.querySelector('.jingguan-' + i);
             const mp = document.querySelector('.menpai-' + i);
             if (!jg || !mp) continue;
