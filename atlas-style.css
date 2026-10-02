@@ -860,4 +860,9 @@ html {
         height: 40px;
         font-size: 2rem;
     }
+
+    .concept-block p,
+    .modal-text-section p {
+        text-align: left; 
+    }
 }
